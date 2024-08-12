@@ -118,17 +118,21 @@ if start:
 
     st.divider()
     st.subheader("Collected Ball Data")
-    st.dataframe(st.session_state.ball_data)
+  if st.session_state.ball_data:
+        df = pd.DataFrame(st.session_state.ball_data)
+        st.dataframe(df)
 
-    @st.cache_data
-    def convert_df_to_csv(df):
-        return df.to_csv(index=False).encode('utf-8')
+        @st.cache_data
+        def convert_df_to_csv(df):
+            return df.to_csv(index=False).encode('utf-8')
 
-    csv_data = convert_df_to_csv(st.session_state.ball_data)
+        csv_data = convert_df_to_csv(df)
 
-    st.download_button(
-        label="Download Data ⬇️",
-        data=csv_data,
-        file_name='match_data.csv',
-        mime='text/csv'
-    )
+        st.download_button(
+            label="Download Data ⬇",
+            data=csv_data,
+            file_name='match_data.csv',
+            mime='text/csv'
+        )
+    else:
+        st.write("No data collected yet.")
