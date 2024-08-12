@@ -14,6 +14,11 @@ with st.sidebar:
 
 st.header(":cricket_bat_and_ball: BallTrack Analyzer: Every Ball, Every Insight :bar_chart:", divider='gray')
 
+st.markdown("""
+This score card app is developed by **Waseef Khalid Khan** for the **QHPC-UOL** to record the ball by ball data of the matches. Special thanks to **Saiprasad Kagne** for the source code and the idea behind this application.
+""")
+
+
 # Initialize session state for ball data
 if 'ball_data' not in st.session_state:
     st.session_state.ball_data = pd.DataFrame(columns=[
