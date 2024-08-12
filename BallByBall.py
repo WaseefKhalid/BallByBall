@@ -4,7 +4,7 @@ import pandas as pd
 st.set_page_config(layout="wide")
 
 with st.sidebar:
-    st.header("🏟 Match Details", divider='gray')
+    st.header("🏟️ Match Details", divider='gray')
     bat_team = st.text_input("Batting Team", key="bat_team_input")
     bowl_team = st.text_input("Bowling Team", key="bowl_team_input")
     innings = st.radio("Innings", ["1", "2"], horizontal=True, key="innings_radio")
@@ -13,9 +13,6 @@ with st.sidebar:
     start = st.checkbox("Start App 🚀", key="start_checkbox")
 
 st.header(":cricket_bat_and_ball: BallTrack Analyzer: Every Ball, Every Insight :bar_chart:", divider='gray')
-st.markdown("""
-This score card app is developed by *Waseef Khalid Khan* for the *QHPC-UOL* to record the ball by ball data of the matches. Special thanks to *Saiprasad Kagne* for the source code and the idea behind this application.
-""")
 
 # Initialize session state for ball data
 if 'ball_data' not in st.session_state:
@@ -125,8 +122,8 @@ if start:
     csv_data = convert_df_to_csv(st.session_state.ball_data)
 
     st.download_button(
-        label="Download Data ⬇",
+        label="Download Data ⬇️",
         data=csv_data,
         file_name='match_data.csv',
         mime='text/csv'
-    )
+    )
