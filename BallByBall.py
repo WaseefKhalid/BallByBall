@@ -3,8 +3,9 @@ import pandas as pd
 
 st.set_page_config(layout="wide")
 
+# Sidebar - Match Details
 with st.sidebar:
-    st.header("🏟️ Match Details", divider='gray')
+    st.header("🏟 Match Details", divider='gray')
     bat_team = st.text_input("Batting Team", key="bat_team_input")
     bowl_team = st.text_input("Bowling Team", key="bowl_team_input")
     innings = st.radio("Innings", ["1", "2"], horizontal=True, key="innings_radio")
@@ -12,23 +13,15 @@ with st.sidebar:
     bowl_players = st.text_area(f"Enter {bowl_team}'s Players (comma-separated)", key="bowl_players_area")
     start = st.checkbox("Start App 🚀", key="start_checkbox")
 
+# Header and Introduction
 st.header(":cricket_bat_and_ball: BallTrack Analyzer: Every Ball, Every Insight :bar_chart:", divider='gray')
-
 st.markdown("""
-This score card app is developed by **Waseef Khalid Khan** for the **QHPC-UOL** to record the ball by ball data of the matches. Special thanks to **Saiprasad Kagne** for the source code and the idea behind this application.
+This score card app is developed by *Waseef Khalid Khan* for the *QHPC-UOL* to record the ball by ball data of the matches. Special thanks to *Saiprasad Kagne* for the source code and the idea behind this application.
 """)
-
 
 # Initialize session state for ball data
 if 'ball_data' not in st.session_state:
-    st.session_state.ball_data = pd.DataFrame(columns=[
-        "Over", "Ball", "Batting Team", "Bowling Team", "Innings", "Batter",
-        "Batting Hand", "Bowler", "Bowling Style", "Bowling Side", "Runs",
-        "Outcome", "False Shot", "Pitching Line", "Pitching Length",
-        "Arrival Line", "Shot Type", "Shot Connection", "Shot Intent",
-        "Wagon Zone", "Feet Movement", "Extras", "Extra Runs", "Wicket",
-        "Player Dismissed", "Dismissed Type", "Description"
-    ])
+    st.session_state.ball_data = []
 
 if start:
     col1, col2 = st.columns(2)
@@ -113,12 +106,13 @@ if start:
             "Dismissed Type": dismissal_type,
             "Description": description
         }
-        st.session_state.ball_data = st.session_state.ball_data.append(new_entry, ignore_index=True)
+        st.session_state.ball_data.append(new_entry)
         st.success("Ball data added successfully!")
 
     st.divider()
     st.subheader("Collected Ball Data")
-  if st.session_state.ball_data:
+
+    if len(st.session_state.ball_data) > 0:
         df = pd.DataFrame(st.session_state.ball_data)
         st.dataframe(df)
 
@@ -136,3 +130,4 @@ if start:
         )
     else:
         st.write("No data collected yet.")
+
